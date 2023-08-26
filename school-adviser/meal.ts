@@ -193,6 +193,20 @@ export class MealBuilder {
     };
 
     /**
+     * @description 급식시작일자와 급식종료일자를 설정합니다.
+     *
+     * @example
+     * ['20230825', '20230825']
+     *
+     * @param between 급식시작일자와 급식종료일자
+     */
+    withBetween = (between: [string, string]): MealBuilder => {
+        this.from = between[0];
+        this.to = between[1];
+        return this;
+    }
+
+    /**
      * @description 페이지 위치를 설정합니다.
      *
      * @example
@@ -306,8 +320,8 @@ export class MealBuilder {
                     meal.NTR_INFO = meal.NTR_INFO.split('<br/>').map((info: string) => {
                         info.trim();
                         return {
-                            name: info.split(':')[0].trim(),
-                            price: parseFloat(info.split(':')[1].trim()),
+                            nutrient: info.split(':')[0].trim(),
+                            amount: parseFloat(info.split(':')[1].trim()),
                         };
                     });
                 }

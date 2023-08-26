@@ -1,10 +1,18 @@
-import {AcademyType} from "./@types/academy";
-import {AcademyBuilder} from "./school-adviser/academy";
+import {SchoolType} from "./@types/school";
+import {SchoolBuilder} from "./school-adviser/school";
+import {ElementaryTimetableBuilder} from "./school-adviser/timetable/elementaryschool";
 
 (async () => {
-    let academies: AcademyType[] = await new AcademyBuilder('J10')
-        .withAcademyName('감성채움피아노교습소')
+    let schools: SchoolType[] = await new SchoolBuilder()
+        .withScCode('J10')
+        .withSchoolName('상인초')
         .build();
 
-    console.log(academies);
+    let timetable = await new ElementaryTimetableBuilder(schools[0].ATPT_OFCDC_SC_CODE, schools[0].SD_SCHUL_CODE)
+        .withBetween(['20210825', '20230825'])
+        .withPage(1)
+        .withPageSize(1)
+        .build();
+
+    console.log(timetable);
 })();
