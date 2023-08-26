@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { getApiUrl } from '../utils/api';
-import { MealParams, MealType } from '../@types/meal';
-import { getDate } from '../utils/date';
+import {getApiUrl} from '../utils/api';
+import {MealParams, MealType} from '../@types/meal';
+import {getDate} from '../utils/date';
 
 /**
  * @description 급식 정보를 빌드하는 클래스입니다.
@@ -40,10 +40,10 @@ export class MealBuilder {
     private readonly schoolCode: string | undefined;
 
     /**
-     * @description 표준학교코드
+     * @description 식사코드
      *
      * @example
-     * '7530045'
+     * 1
      *
      * @private
      */
@@ -219,6 +219,52 @@ export class MealBuilder {
     };
 
     /**
+     * @description API URL을 반환합니다.
+     *
+     * @example
+     * 'https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=...&Type=json'
+     *
+     * @returns {string} API URL
+     */
+    url = (): string => {
+        let url = this.API_URL;
+
+        if (this.scCode) {
+            url += `&ATPT_OFCDC_SC_CODE=${this.scCode}`;
+        }
+
+        if (this.schoolCode) {
+            url += `&SD_SCHUL_CODE=${this.schoolCode}`;
+        }
+
+        if (this.mealCode) {
+            url += `&SD_SCHUL_CODE=${this.mealCode}`;
+        }
+
+        if (this.date) {
+            url += `&MLSV_YMD=${this.date}`;
+        }
+
+        if (this.from) {
+            url += `&MLSV_FROM_YMD=${this.from}`;
+        }
+
+        if (this.to) {
+            url += `&MLSV_TO_YMD=${this.to}`;
+        }
+
+        if (this.page) {
+            url += `&pIndex=${this.page}`;
+        }
+
+        if (this.pageSize) {
+            url += `&pSize=${this.pageSize}`;
+        }
+
+        return url;
+    };
+
+    /**
      * @description 설정한 정보를 바탕으로 급식 정보를 빌드합니다.
      *
      * @example
@@ -233,43 +279,8 @@ export class MealBuilder {
      */
     build = async (): Promise<MealType[]> => {
         try {
-            let url = this.API_URL;
 
-            if (this.scCode) {
-                url += `&ATPT_OFCDC_SC_CODE=${ this.scCode }`;
-            }
-
-            if (this.schoolCode) {
-                url += `&SD_SCHUL_CODE=${ this.schoolCode }`;
-            }
-
-            if (this.mealCode) {
-                url += `&SD_SCHUL_CODE=${ this.mealCode }`;
-            }
-
-            if (this.date) {
-                url += `&MLSV_YMD=${ this.date }`;
-            }
-
-            if (this.from) {
-                url += `&MLSV_FROM_YMD=${ this.from }`;
-            }
-
-            if (this.to) {
-                url += `&MLSV_TO_YMD=${ this.to }`;
-            }
-
-            if (this.page) {
-                url += `&pIndex=${ this.page }`;
-            }
-
-            if (this.pageSize) {
-                url += `&pSize=${ this.pageSize }`;
-            }
-
-            console.log(url);
-
-            const res = await axios.get(url);
+            const res = await axios.get(this.url());
 
             const data = res.data.mealServiceDietInfo[1].row;
             data.forEach((meal: MealType) => {
@@ -295,8 +306,8 @@ export class MealBuilder {
                     meal.NTR_INFO = meal.NTR_INFO.split('<br/>').map((info: string) => {
                         info.trim();
                         return {
-                            nutrient: info.split(':')[0].trim(),
-                            amount: parseFloat(info.split(':')[1].trim()),
+                            name: info.split(':')[0].trim(),
+                            price: parseFloat(info.split(':')[1].trim()),
                         };
                     });
                 }

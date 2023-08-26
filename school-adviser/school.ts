@@ -242,6 +242,52 @@ export class SchoolBuilder {
     };
 
     /**
+     * @descriptino API URL을 반환합니다.
+     *
+     * @example
+     * 'https://open.neis.go.kr/hub/schoolInfo?KEY=...&Type=json'
+     *
+     * @returns {string} API URL
+     */
+    url = (): string => {
+        let url = this.API_URL;
+
+        if (this.scCode) {
+            url += `&ATPT_OFCDC_SC_CODE=${ this.scCode }`;
+        }
+
+        if (this.schoolCode) {
+            url += `&SD_SCHUL_CODE=${ this.schoolCode }`;
+        }
+
+        if (this.schoolName) {
+            url += `&SCHUL_NM=${ this.schoolName }`;
+        }
+
+        if (this.schoolType) {
+            url += `&SCHUL_KND_SC_NM=${ this.schoolType }`;
+        }
+
+        if (this.location) {
+            url += `&LCTN_SC_NM=${ this.location }`;
+        }
+
+        if (this.foundation) {
+            url += `&FOND_SC_NM=${ this.foundation }`;
+        }
+
+        if (this.page) {
+            url += `&pIndex=${ this.page }`;
+        }
+
+        if (this.pageSize) {
+            url += `&pSize=${ this.pageSize }`;
+        }
+
+        return url;
+    };
+
+    /**
      * @description 설정한 정보를 바탕으로 학교 정보를 빌드합니다.
      *
      * @example
@@ -256,41 +302,7 @@ export class SchoolBuilder {
      */
     build = async (): Promise<SchoolType[]> => {
         try {
-            let url = this.API_URL;
-
-            if (this.scCode) {
-                url += `&ATPT_OFCDC_SC_CODE=${ this.scCode }`;
-            }
-
-            if (this.schoolCode) {
-                url += `&SD_SCHUL_CODE=${ this.schoolCode }`;
-            }
-
-            if (this.schoolName) {
-                url += `&SCHUL_NM=${ this.schoolName }`;
-            }
-
-            if (this.schoolType) {
-                url += `&SCHUL_KND_SC_NM=${ this.schoolType }`;
-            }
-
-            if (this.location) {
-                url += `&LCTN_SC_NM=${ this.location }`;
-            }
-
-            if (this.foundation) {
-                url += `&FOND_SC_NM=${ this.foundation }`;
-            }
-
-            if (this.page) {
-                url += `&pIndex=${ this.page }`;
-            }
-
-            if (this.pageSize) {
-                url += `&pSize=${ this.pageSize }`;
-            }
-
-            const res = await axios.get(url);
+            const res = await axios.get(this.url());
 
             const data = res.data.schoolInfo[1].row;
             data.forEach((school: SchoolType) => {
