@@ -14,7 +14,7 @@
  * @property {string} IRTR_CNTNT 수업내용
  * @property {string} LOAD_DTM 수정일
  */
-export interface ElementaryTimetableType {
+export interface ElementarySchoolTimetableType {
     /**
      * @description 시도교육청코드
      * @type {string}
@@ -139,7 +139,7 @@ export interface ElementaryTimetableType {
  * @property {number} page 페이지 위치
  * @property {number} pageSize 페이지 당 신청 숫자
  */
-export interface ElementaryTimetableParams {
+export interface ElementarySchoolTimetableParams {
     /**
      * @description 학년도
      * @type {string}

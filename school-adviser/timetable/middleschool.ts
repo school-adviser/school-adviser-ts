@@ -1,16 +1,16 @@
 import axios from 'axios';
 import {getApiUrl} from '../../utils/api';
-import {ElementarySchoolTimetableParams, ElementarySchoolTimetableType} from "../../@types/timetable/elementaryschool";
 import {getDate} from "../../utils/date";
+import {MiddleSchoolTimetableParams, MiddleSchoolTimetableType} from "../../@types/timetable/middleschool";
 
 /**
  * @description 시간표 정보를 빌드하는 클래스입니다.
  * @example
- * const timetable = await new ElementaryschoolTimetableBuidler('J10', '7581078')
+ * const timetable = await new MiddleSchoolTimetableBuilder('J10', '7581030')
  *   .withYear('2021')
  *   .build();
  */
-export class ElementaryschoolTimetableBuidler {
+export class MiddleSchoolTimetableBuilder {
     /**
      * @description API URL
      *
@@ -32,7 +32,7 @@ export class ElementaryschoolTimetableBuidler {
      * @description 표준학교코드
      *
      * @example
-     * '7581078'
+     * '7530124'
      *
      * @private
      */
@@ -64,6 +64,15 @@ export class ElementaryschoolTimetableBuidler {
      * '20210825'
      */
     private date: string | undefined;
+
+    /**
+     * @description 주야과정명
+     * @type {string}
+     *
+     * @example
+     * '주간'
+     */
+    private dayNightCourse: string | undefined;
 
     /**
      * @description 학년
@@ -135,21 +144,21 @@ export class ElementaryschoolTimetableBuidler {
      * @description 학원 정보를 빌드하는 클래스입니다.
      *
      * @example
-     * const timetable = await new ElementaryschoolTimetableBuidler('J10', '7581078')
+     * const timetable = await new ElementaryTimetableBuilder('J10', '7581078')
      *   .withYear('2021')
      *   .build();
      */
     constructor(scCode: string, schoolCode: string) {
         this.scCode = scCode;
         this.schoolCode = schoolCode;
-        this.API_URL = getApiUrl('elsTimetable');
+        this.API_URL = getApiUrl('misTimetable');
     }
 
     /**
      * @description 시간표 정보를 객체 형태로 빌드합니다.
      *
      * @example
-     * const timetable = await new ElementaryschoolTimetableBuidler()
+     * const timetable = await new MiddleSchoolTimetableBuilder()
      *  .withParams({
      *    scCode: 'J10'
      *  })
@@ -157,10 +166,11 @@ export class ElementaryschoolTimetableBuidler {
      *
      * @param params 시간표 정보를 담은 객체입니다.
      */
-    withParams = (params: ElementarySchoolTimetableParams): ElementaryschoolTimetableBuidler => {
+    withParams = (params: MiddleSchoolTimetableParams): MiddleSchoolTimetableBuilder => {
         this.year = params.year;
         this.semester = params.semester;
         this.date = params.date;
+        this.dayNightCourse = params.dayNightCourse;
         this.grade = params.grade;
         this.class = params.class;
         this.period = params.period;
@@ -179,7 +189,7 @@ export class ElementaryschoolTimetableBuidler {
      *
      * @param year 학년도
      */
-    withYear = (year: string): ElementaryschoolTimetableBuidler => {
+    withYear = (year: string): MiddleSchoolTimetableBuilder => {
         this.year = year;
         return this;
     }
@@ -192,7 +202,7 @@ export class ElementaryschoolTimetableBuidler {
      *
      * @param semester 학기
      */
-    withSemester = (semester: string): ElementaryschoolTimetableBuidler => {
+    withSemester = (semester: string): MiddleSchoolTimetableBuilder => {
         this.semester = semester;
         return this;
     }
@@ -205,8 +215,21 @@ export class ElementaryschoolTimetableBuidler {
      *
      * @param date 시간표일자
      */
-    withDate = (date: string): ElementaryschoolTimetableBuidler => {
+    withDate = (date: string): MiddleSchoolTimetableBuilder => {
         this.date = date;
+        return this;
+    }
+
+    /**
+     * @description 주야과정명을 설정합니다.
+     *
+     * @example
+     * '주간'
+     *
+     * @param dayNightCourse 주야과정명
+     */
+    withDayNightCourse = (dayNightCourse: string): MiddleSchoolTimetableBuilder => {
+        this.dayNightCourse = dayNightCourse;
         return this;
     }
 
@@ -218,7 +241,7 @@ export class ElementaryschoolTimetableBuidler {
      *
      * @param grade 학년
      */
-    withGrade = (grade: string): ElementaryschoolTimetableBuidler => {
+    withGrade = (grade: string): MiddleSchoolTimetableBuilder => {
         this.grade = grade;
         return this;
     }
@@ -231,7 +254,7 @@ export class ElementaryschoolTimetableBuidler {
      *
      * @param class_ 학급명
      */
-    withClass = (class_: string): ElementaryschoolTimetableBuidler => {
+    withClass = (class_: string): MiddleSchoolTimetableBuilder => {
         this.class = class_;
         return this;
     }
@@ -244,7 +267,7 @@ export class ElementaryschoolTimetableBuidler {
      *
      * @param period 교시
      */
-    withPeriod = (period: string): ElementaryschoolTimetableBuidler => {
+    withPeriod = (period: string): MiddleSchoolTimetableBuilder => {
         this.period = period;
         return this;
     }
@@ -257,7 +280,7 @@ export class ElementaryschoolTimetableBuidler {
      *
      * @param from 시간표시작일자
      */
-    withFrom = (from: string): ElementaryschoolTimetableBuidler => {
+    withFrom = (from: string): MiddleSchoolTimetableBuilder => {
         this.from = from;
         return this;
     }
@@ -270,7 +293,7 @@ export class ElementaryschoolTimetableBuidler {
      *
      * @param to 시간표종료일자
      */
-    withTo = (to: string): ElementaryschoolTimetableBuidler => {
+    withTo = (to: string): MiddleSchoolTimetableBuilder => {
         this.to = to;
         return this;
     }
@@ -283,7 +306,7 @@ export class ElementaryschoolTimetableBuidler {
      *
      * @param between 시간표시작일자와 시간표종료일자
      */
-    withBetween = (between: [string, string]): ElementaryschoolTimetableBuidler => {
+    withBetween = (between: [string, string]): MiddleSchoolTimetableBuilder => {
         this.from = between[0];
         this.to = between[1];
         return this;
@@ -297,7 +320,7 @@ export class ElementaryschoolTimetableBuidler {
      *
      * @param page 페이지 위치
      */
-    withPage = (page: number): ElementaryschoolTimetableBuidler => {
+    withPage = (page: number): MiddleSchoolTimetableBuilder => {
         this.page = page;
         return this;
     };
@@ -310,7 +333,7 @@ export class ElementaryschoolTimetableBuidler {
      *
      * @param pageSize 페이지 당 신청 숫자
      */
-    withPageSize = (pageSize: number): ElementaryschoolTimetableBuidler => {
+    withPageSize = (pageSize: number): MiddleSchoolTimetableBuilder => {
         this.pageSize = pageSize;
         return this;
     };
@@ -319,7 +342,7 @@ export class ElementaryschoolTimetableBuidler {
      * @description API URL을 반환합니다.
      *
      * @example
-     * 'https://open.neis.go.kr/hub/elsTimetable?KEY=...&Type=json'
+     * 'https://open.neis.go.kr/hub/hisTimetable?KEY=...&Type=json'
      *
      * @returns {string} API URL
      */
@@ -344,6 +367,10 @@ export class ElementaryschoolTimetableBuidler {
 
         if (this.date) {
             url += `&ALL_TI_YMD=${this.date}`;
+        }
+
+        if (this.dayNightCourse) {
+            url += `&DGHT_CRSE_SC_NM=${this.dayNightCourse}`;
         }
 
         if (this.grade) {
@@ -381,26 +408,32 @@ export class ElementaryschoolTimetableBuidler {
      * @description 설정한 정보를 바탕으로 시간표 정보를 빌드합니다.
      *
      * @example
-     * const timetable = await new ElementaryschoolTimetableBuidler('J10', '7581078')
+     * const timetable = await new MiddleSchoolTimetableBuidler('J10', '7530124')
      *   .withYear('2021')
      *   .build();
      *
-     * @returns {Promise<<ElementaryschoolTimetableType>[]>} 시간표 정보를 담은 객체입니다.
+     * @returns {Promise<<MiddleSchoolTimetableType>[]>} 시간표 정보를 담은 객체입니다.
      * @throws {Error} 시간표 정보를 불러오지 못했을 경우 에러를 던집니다.
-     * @see {@link https://open.neis.go.kr/portal/data/service/selectServicePage.do?page=1&rows=10&sortColumn=&sortDirection=&infId=OPEN15020190408160341416743&infSeq=2} API 정보
+     * @see {@link https://open.neis.go.kr/portal/data/service/selectServicePage.do?page=1&rows=10&sortColumn=&sortDirection=&infId=OPEN15120190408165334348844&infSeq=2} API 정보
      */
-    build = async (): Promise<ElementarySchoolTimetableType[]> => {
+    build = async (): Promise<MiddleSchoolTimetableType[]> => {
         try {
             const res = await axios.get(this.url());
 
-            const data = res.data.elsTimetable[1].row;
-            data.forEach((timetable: ElementarySchoolTimetableType) => {
+            console.log(this.url())
+
+            const data = res.data.misTimetable[1].row;
+            data.forEach((timetable: MiddleSchoolTimetableType) => {
                 if (typeof timetable.ALL_TI_YMD === 'string') {
                     timetable.ALL_TI_YMD = getDate(timetable.ALL_TI_YMD);
                 }
 
                 if (typeof timetable.LOAD_DTM === 'string') {
                     timetable.LOAD_DTM = getDate(timetable.LOAD_DTM);
+                }
+
+                if (timetable.ITRT_CNTNT && timetable.ITRT_CNTNT.startsWith('-')) {
+                    timetable.ITRT_CNTNT = timetable.ITRT_CNTNT.slice(1);
                 }
             });
 
