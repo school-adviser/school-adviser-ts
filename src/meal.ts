@@ -1,7 +1,7 @@
 import axios from 'axios';
-import {getApiUrl} from '../utils/api';
-import {MealParams, MealType} from '../@types/meal';
-import {getDate} from '../utils/date';
+import {getApiUrl} from './utils/api';
+import {MealParams, MealType} from './@types/meal';
+import {getDate} from './utils/date';
 
 /**
  * @description 급식 정보를 빌드하는 클래스입니다.

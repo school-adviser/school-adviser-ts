@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { getApiUrl } from '../utils/api';
-import { AcademyParams, AcademyType } from '../@types/academy';
-import { getDate } from '../utils/date';
+import {getApiUrl} from './utils/api';
+import {AcademyParams, AcademyType} from './@types/academy';
+import {getDate} from './utils/date';
 
 /**
  * @description 학 정보를 빌드하는 클래스입니다.
@@ -262,39 +262,39 @@ export class AcademyBuilder {
         let url = this.API_URL;
 
         if (this.scCode) {
-            url += `&ATPT_OFCDC_SC_CODE=${ this.scCode }`;
+            url += `&ATPT_OFCDC_SC_CODE=${this.scCode}`;
         }
 
         if (this.zoneName) {
-            url += `&ADMST_ZONE_NM=${ this.zoneName }`;
+            url += `&ADMST_ZONE_NM=${this.zoneName}`;
         }
 
         if (this.academyNumber) {
-            url += `&ACA_ASNUM=${ this.academyNumber }`;
+            url += `&ACA_ASNUM=${this.academyNumber}`;
         }
 
         if (this.academyName) {
-            url += `&ACA_NM=${ this.academyName }`;
+            url += `&ACA_NM=${this.academyName}`;
         }
 
         if (this.realm) {
-            url += `&REALM_SC_NM=${ this.realm }`;
+            url += `&REALM_SC_NM=${this.realm}`;
         }
 
         if (this.learningField) {
-            url += `&LE_ORD_NM=${ this.learningField }`;
+            url += `&LE_ORD_NM=${this.learningField}`;
         }
 
         if (this.course) {
-            url += `&LE_CRSE_NM=${ this.course }`;
+            url += `&LE_CRSE_NM=${this.course}`;
         }
 
         if (this.page) {
-            url += `&pIndex=${ this.page }`;
+            url += `&pIndex=${this.page}`;
         }
 
         if (this.pageSize) {
-            url += `&pSize=${ this.pageSize }`;
+            url += `&pSize=${this.pageSize}`;
         }
 
         return url;
