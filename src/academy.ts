@@ -4,7 +4,7 @@ import { AcademyParams, AcademyType } from './types/academy';
 import { getDate } from './utils/date';
 
 /**
- * @description 학 정보를 빌드하는 클래스입니다.
+ * @description 학원 정보를 빌드하는 클래스입니다.
  * @example
  * const academy = await new AcademyBuilder()
  *   .withScCode('J10')
