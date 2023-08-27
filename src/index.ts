@@ -1,19 +1,19 @@
-exports.SchoolBuilder = require('./school')
-exports.MealBuilder = require('./meal')
-exports.AcademyBuilder = require('/academy')
-exports.ElementarySchoolTimetableBuilder = require('./timetable/elementaryschool')
-exports.MiddleSchoolTimetableBuilder = require('./timetable/middleschool')
-exports.HighSchoolTimetableBuilder = require('./timetable/highschool')
+import { ElementarySchoolTimetableParams, ElementarySchoolTimetableType } from './types/timetable/elementaryschool';
+import { MiddleSchoolTimetableParams, MiddleSchoolTimetableType } from './types/timetable/middleschool';
+import { HighSchoolTimetableParams, HighSchoolTimetableType } from './types/timetable/highschool';
 
-exports.ElementarySchoolTimetableType = require('./@types/timetable/elementaryschool')
-exports.ElementarySchoolTimetableParams = require('./@types/timetable/elementaryschool')
-exports.MiddleSchoolTimetableType = require('./@types/timetable/middleschool')
-exports.MiddleSchoolTimetableParams = require('./@types/timetable/middleschool')
-exports.HighSchoolTimetableType = require('./@types/timetable/highschool')
-exports.HighSchoolTimetableParams = require('./@types/timetable/highschool')
-exports.AcademyType = require('./@types/academy')
-exports.AcademyParams = require('./@types/academy')
-exports.MealType = require('./@types/meal')
-exports.MealParams = require('./@types/meal')
-exports.SchoolType = require('./@types/school')
-exports.SchoolParams = require('./@types/school')
+exports.SchoolBuilder = require('./school');
+exports.MealBuilder = require('./meal');
+exports.AcademyBuilder = require('./academy');
+exports.ElementarySchoolTimetableBuilder = require('./timetable/elementaryschool');
+exports.MiddleSchoolTimetableBuilder = require('./timetable/middleschool');
+exports.HighSchoolTimetableBuilder = require('./timetable/highschool');
+
+export {
+    ElementarySchoolTimetableType,
+    ElementarySchoolTimetableParams,
+    MiddleSchoolTimetableParams,
+    MiddleSchoolTimetableType,
+    HighSchoolTimetableType,
+    HighSchoolTimetableParams,
+};

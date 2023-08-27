@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {getApiUrl} from './utils/api';
-import {AcademyParams, AcademyType} from './@types/academy';
+import {AcademyParams, AcademyType} from './types/academy';
 import {getDate} from './utils/date';
 
 /**

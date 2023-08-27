@@ -1,7 +1,7 @@
 import axios from 'axios';
-import {getApiUrl} from './utils/api';
-import {MealParams, MealType} from './@types/meal';
-import {getDate} from './utils/date';
+import { getApiUrl } from './utils/api';
+import { MealParams, MealType } from './types/meal';
+import { getDate } from './utils/date';
 
 /**
  * @description 급식 정보를 빌드하는 클래스입니다.
@@ -27,7 +27,7 @@ export class MealBuilder {
      *
      * @private
      */
-    private readonly scCode: string | undefined;
+    private scCode: string | undefined;
 
     /**
      * @description 표준학교코드
@@ -37,7 +37,7 @@ export class MealBuilder {
      *
      * @private
      */
-    private readonly schoolCode: string | undefined;
+    private schoolCode: string | undefined;
 
     /**
      * @description 식사코드
@@ -200,11 +200,11 @@ export class MealBuilder {
      *
      * @param between 급식시작일자와 급식종료일자
      */
-    withBetween = (between: [string, string]): MealBuilder => {
+    withBetween = (between: [ string, string ]): MealBuilder => {
         this.from = between[0];
         this.to = between[1];
         return this;
-    }
+    };
 
     /**
      * @description 페이지 위치를 설정합니다.
@@ -244,35 +244,35 @@ export class MealBuilder {
         let url = this.API_URL;
 
         if (this.scCode) {
-            url += `&ATPT_OFCDC_SC_CODE=${this.scCode}`;
+            url += `&ATPT_OFCDC_SC_CODE=${ this.scCode }`;
         }
 
         if (this.schoolCode) {
-            url += `&SD_SCHUL_CODE=${this.schoolCode}`;
+            url += `&SD_SCHUL_CODE=${ this.schoolCode }`;
         }
 
         if (this.mealCode) {
-            url += `&SD_SCHUL_CODE=${this.mealCode}`;
+            url += `&SD_SCHUL_CODE=${ this.mealCode }`;
         }
 
         if (this.date) {
-            url += `&MLSV_YMD=${this.date}`;
+            url += `&MLSV_YMD=${ this.date }`;
         }
 
         if (this.from) {
-            url += `&MLSV_FROM_YMD=${this.from}`;
+            url += `&MLSV_FROM_YMD=${ this.from }`;
         }
 
         if (this.to) {
-            url += `&MLSV_TO_YMD=${this.to}`;
+            url += `&MLSV_TO_YMD=${ this.to }`;
         }
 
         if (this.page) {
-            url += `&pIndex=${this.page}`;
+            url += `&pIndex=${ this.page }`;
         }
 
         if (this.pageSize) {
-            url += `&pSize=${this.pageSize}`;
+            url += `&pSize=${ this.pageSize }`;
         }
 
         return url;

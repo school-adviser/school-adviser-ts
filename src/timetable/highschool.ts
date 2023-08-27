@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {getApiUrl} from '../utils/api';
 import {getDate} from "../utils/date";
-import {HighSchoolTimetableParams, HighSchoolTimetableType} from "../@types/timetable/highschool";
+import {HighSchoolTimetableParams, HighSchoolTimetableType} from "../types/timetable/highschool";
 
 /**
  * @description 시간표 정보를 빌드하는 클래스입니다.

@@ -1,7 +1,7 @@
 import axios from 'axios';
-import {SchoolParams, SchoolType} from './@types/school';
-import {getApiUrl} from './utils/api';
-import {getDate} from './utils/date';
+import { SchoolParams, SchoolType } from './types/school';
+import { getApiUrl } from './utils/api';
+import { getDate } from './utils/date';
 
 /**
  * @description 학교 정보를 빌드하는 클래스입니다.
@@ -242,7 +242,7 @@ export class SchoolBuilder {
     };
 
     /**
-     * @descriptino API URL을 반환합니다.
+     * @description API URL을 반환합니다.
      *
      * @example
      * 'https://open.neis.go.kr/hub/schoolInfo?KEY=...&Type=json'
@@ -253,35 +253,35 @@ export class SchoolBuilder {
         let url = this.API_URL;
 
         if (this.scCode) {
-            url += `&ATPT_OFCDC_SC_CODE=${this.scCode}`;
+            url += `&ATPT_OFCDC_SC_CODE=${ this.scCode }`;
         }
 
         if (this.schoolCode) {
-            url += `&SD_SCHUL_CODE=${this.schoolCode}`;
+            url += `&SD_SCHUL_CODE=${ this.schoolCode }`;
         }
 
         if (this.schoolName) {
-            url += `&SCHUL_NM=${this.schoolName}`;
+            url += `&SCHUL_NM=${ this.schoolName }`;
         }
 
         if (this.schoolType) {
-            url += `&SCHUL_KND_SC_NM=${this.schoolType}`;
+            url += `&SCHUL_KND_SC_NM=${ this.schoolType }`;
         }
 
         if (this.location) {
-            url += `&LCTN_SC_NM=${this.location}`;
+            url += `&LCTN_SC_NM=${ this.location }`;
         }
 
         if (this.foundation) {
-            url += `&FOND_SC_NM=${this.foundation}`;
+            url += `&FOND_SC_NM=${ this.foundation }`;
         }
 
         if (this.page) {
-            url += `&pIndex=${this.page}`;
+            url += `&pIndex=${ this.page }`;
         }
 
         if (this.pageSize) {
-            url += `&pSize=${this.pageSize}`;
+            url += `&pSize=${ this.pageSize }`;
         }
 
         return url;

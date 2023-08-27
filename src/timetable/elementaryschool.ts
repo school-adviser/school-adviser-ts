@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {getApiUrl} from '../utils/api';
-import {ElementarySchoolTimetableParams, ElementarySchoolTimetableType} from "../@types/timetable/elementaryschool";
+import {ElementarySchoolTimetableParams, ElementarySchoolTimetableType} from "../types/timetable/elementaryschool";
 import {getDate} from "../utils/date";
 
 /**
