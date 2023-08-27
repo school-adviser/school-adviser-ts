@@ -1,7 +1,7 @@
 import axios from 'axios';
-import {getApiUrl} from '../utils/api';
-import {getDate} from "../utils/date";
-import {HighSchoolTimetableParams, HighSchoolTimetableType} from "../types/timetable/highschool";
+import { getApiUrl } from '../utils/api';
+import { getDate } from '../utils/date';
+import { HighSchoolTimetableParams, HighSchoolTimetableType } from '../types/timetable/highschool';
 
 /**
  * @description 시간표 정보를 빌드하는 클래스입니다.
@@ -223,7 +223,7 @@ export class HighSchoolTimetableBuilder {
     withYear = (year: string): HighSchoolTimetableBuilder => {
         this.year = year;
         return this;
-    }
+    };
 
     /**
      * @description 학기를 설정합니다.
@@ -236,7 +236,7 @@ export class HighSchoolTimetableBuilder {
     withSemester = (semester: string): HighSchoolTimetableBuilder => {
         this.semester = semester;
         return this;
-    }
+    };
 
     /**
      * @description 시간표일자를 설정합니다.
@@ -249,7 +249,7 @@ export class HighSchoolTimetableBuilder {
     withDate = (date: string): HighSchoolTimetableBuilder => {
         this.date = date;
         return this;
-    }
+    };
 
     /**
      * @description 주야과정명을 설정합니다.
@@ -262,7 +262,7 @@ export class HighSchoolTimetableBuilder {
     withDayNightCourse = (dayNightCourse: string): HighSchoolTimetableBuilder => {
         this.dayNightCourse = dayNightCourse;
         return this;
-    }
+    };
 
     /**
      * @description 계열명을 설정합니다.
@@ -275,7 +275,7 @@ export class HighSchoolTimetableBuilder {
     withRealm = (realm: string): HighSchoolTimetableBuilder => {
         this.realm = realm;
         return this;
-    }
+    };
 
     /**
      * @description 학과명을 설정합니다.
@@ -288,7 +288,7 @@ export class HighSchoolTimetableBuilder {
     withDepartment = (department: string): HighSchoolTimetableBuilder => {
         this.department = department;
         return this;
-    }
+    };
 
     /**
      * @description 학년을 설정합니다.
@@ -301,7 +301,7 @@ export class HighSchoolTimetableBuilder {
     withGrade = (grade: string): HighSchoolTimetableBuilder => {
         this.grade = grade;
         return this;
-    }
+    };
 
     /**
      * @description 강의실명을 설정합니다.
@@ -314,7 +314,7 @@ export class HighSchoolTimetableBuilder {
     withClassroom = (classroom: string): HighSchoolTimetableBuilder => {
         this.classroom = classroom;
         return this;
-    }
+    };
 
     /**
      * @description 학급명을 설정합니다.
@@ -327,7 +327,7 @@ export class HighSchoolTimetableBuilder {
     withClass = (class_: string): HighSchoolTimetableBuilder => {
         this.class = class_;
         return this;
-    }
+    };
 
     /**
      * @description 교시를 설정합니다.
@@ -340,7 +340,7 @@ export class HighSchoolTimetableBuilder {
     withPeriod = (period: string): HighSchoolTimetableBuilder => {
         this.period = period;
         return this;
-    }
+    };
 
     /**
      * @description 시간표시작일자를 설정합니다.
@@ -353,7 +353,7 @@ export class HighSchoolTimetableBuilder {
     withFrom = (from: string): HighSchoolTimetableBuilder => {
         this.from = from;
         return this;
-    }
+    };
 
     /**
      * @description 시간표종료일자를 설정합니다.
@@ -366,7 +366,7 @@ export class HighSchoolTimetableBuilder {
     withTo = (to: string): HighSchoolTimetableBuilder => {
         this.to = to;
         return this;
-    }
+    };
 
     /**
      * @description 시간표시작일자와 시간표종료일자를 설정합니다.
@@ -376,11 +376,11 @@ export class HighSchoolTimetableBuilder {
      *
      * @param between 시간표시작일자와 시간표종료일자
      */
-    withBetween = (between: [string, string]): HighSchoolTimetableBuilder => {
+    withBetween = (between: [ string, string ]): HighSchoolTimetableBuilder => {
         this.from = between[0];
         this.to = between[1];
         return this;
-    }
+    };
 
     /**
      * @description 페이지 위치를 설정합니다.
@@ -420,67 +420,67 @@ export class HighSchoolTimetableBuilder {
         let url = this.API_URL;
 
         if (this.scCode) {
-            url += `&ATPT_OFCDC_SC_CODE=${this.scCode}`;
+            url += `&ATPT_OFCDC_SC_CODE=${ this.scCode }`;
         }
 
         if (this.schoolCode) {
-            url += `&SD_SCHUL_CODE=${this.schoolCode}`;
+            url += `&SD_SCHUL_CODE=${ this.schoolCode }`;
         }
 
         if (this.year) {
-            url += `&AY=${this.year}`;
+            url += `&AY=${ this.year }`;
         }
 
         if (this.semester) {
-            url += `&SEM=${this.semester}`;
+            url += `&SEM=${ this.semester }`;
         }
 
         if (this.date) {
-            url += `&ALL_TI_YMD=${this.date}`;
+            url += `&ALL_TI_YMD=${ this.date }`;
         }
 
         if (this.dayNightCourse) {
-            url += `&DGHT_CRSE_SC_NM=${this.dayNightCourse}`;
+            url += `&DGHT_CRSE_SC_NM=${ this.dayNightCourse }`;
         }
 
         if (this.realm) {
-            url += `&ORD_SC_NM=${this.realm}`;
+            url += `&ORD_SC_NM=${ this.realm }`;
         }
 
         if (this.department) {
-            url += `&DEPT_NM=${this.department}`;
+            url += `&DEPT_NM=${ this.department }`;
         }
 
         if (this.grade) {
-            url += `&GRADE=${this.grade}`;
+            url += `&GRADE=${ this.grade }`;
         }
 
         if (this.classroom) {
-            url += `&CLRM_NM=${this.classroom}`;
+            url += `&CLRM_NM=${ this.classroom }`;
         }
 
         if (this.class) {
-            url += `&CLASS_NM=${this.class}`;
+            url += `&CLASS_NM=${ this.class }`;
         }
 
         if (this.period) {
-            url += `&PERIO=${this.period}`;
+            url += `&PERIO=${ this.period }`;
         }
 
         if (this.from) {
-            url += `&TI_FROM_YMD=${this.from}`;
+            url += `&TI_FROM_YMD=${ this.from }`;
         }
 
         if (this.to) {
-            url += `&TI_TO_YMD=${this.to}`;
+            url += `&TI_TO_YMD=${ this.to }`;
         }
 
         if (this.page) {
-            url += `&pIndex=${this.page}`;
+            url += `&pIndex=${ this.page }`;
         }
 
         if (this.pageSize) {
-            url += `&pSize=${this.pageSize}`;
+            url += `&pSize=${ this.pageSize }`;
         }
 
         return url;
@@ -502,7 +502,9 @@ export class HighSchoolTimetableBuilder {
         try {
             const res = await axios.get(this.url());
 
-            console.log(this.url())
+            if (res.data?.RESULT?.CODE === 'INFO-200') {
+                return [];
+            }
 
             const data = res.data.hisTimetable[1].row;
             data.forEach((timetable: HighSchoolTimetableType) => {

@@ -294,7 +294,12 @@ export class MealBuilder {
     build = async (): Promise<MealType[]> => {
         try {
 
+
             const res = await axios.get(this.url());
+
+            if (res.data?.RESULT?.CODE === 'INFO-200') {
+                return [];
+            }
 
             const data = res.data.mealServiceDietInfo[1].row;
             data.forEach((meal: MealType) => {

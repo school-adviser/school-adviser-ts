@@ -1,7 +1,7 @@
 import axios from 'axios';
-import {getApiUrl} from '../utils/api';
-import {getDate} from "../utils/date";
-import {MiddleSchoolTimetableParams, MiddleSchoolTimetableType} from "../types/timetable/middleschool";
+import { getApiUrl } from '../utils/api';
+import { getDate } from '../utils/date';
+import { MiddleSchoolTimetableParams, MiddleSchoolTimetableType } from '../types/timetable/middleschool';
 
 /**
  * @description 시간표 정보를 빌드하는 클래스입니다.
@@ -192,7 +192,7 @@ export class MiddleSchoolTimetableBuilder {
     withYear = (year: string): MiddleSchoolTimetableBuilder => {
         this.year = year;
         return this;
-    }
+    };
 
     /**
      * @description 학기를 설정합니다.
@@ -205,7 +205,7 @@ export class MiddleSchoolTimetableBuilder {
     withSemester = (semester: string): MiddleSchoolTimetableBuilder => {
         this.semester = semester;
         return this;
-    }
+    };
 
     /**
      * @description 시간표일자를 설정합니다.
@@ -218,7 +218,7 @@ export class MiddleSchoolTimetableBuilder {
     withDate = (date: string): MiddleSchoolTimetableBuilder => {
         this.date = date;
         return this;
-    }
+    };
 
     /**
      * @description 주야과정명을 설정합니다.
@@ -231,7 +231,7 @@ export class MiddleSchoolTimetableBuilder {
     withDayNightCourse = (dayNightCourse: string): MiddleSchoolTimetableBuilder => {
         this.dayNightCourse = dayNightCourse;
         return this;
-    }
+    };
 
     /**
      * @description 학년을 설정합니다.
@@ -244,7 +244,7 @@ export class MiddleSchoolTimetableBuilder {
     withGrade = (grade: string): MiddleSchoolTimetableBuilder => {
         this.grade = grade;
         return this;
-    }
+    };
 
     /**
      * @description 학급명을 설정합니다.
@@ -257,7 +257,7 @@ export class MiddleSchoolTimetableBuilder {
     withClass = (class_: string): MiddleSchoolTimetableBuilder => {
         this.class = class_;
         return this;
-    }
+    };
 
     /**
      * @description 교시를 설정합니다.
@@ -270,7 +270,7 @@ export class MiddleSchoolTimetableBuilder {
     withPeriod = (period: string): MiddleSchoolTimetableBuilder => {
         this.period = period;
         return this;
-    }
+    };
 
     /**
      * @description 시간표시작일자를 설정합니다.
@@ -283,7 +283,7 @@ export class MiddleSchoolTimetableBuilder {
     withFrom = (from: string): MiddleSchoolTimetableBuilder => {
         this.from = from;
         return this;
-    }
+    };
 
     /**
      * @description 시간표종료일자를 설정합니다.
@@ -296,7 +296,7 @@ export class MiddleSchoolTimetableBuilder {
     withTo = (to: string): MiddleSchoolTimetableBuilder => {
         this.to = to;
         return this;
-    }
+    };
 
     /**
      * @description 시간표시작일자와 시간표종료일자를 설정합니다.
@@ -306,11 +306,11 @@ export class MiddleSchoolTimetableBuilder {
      *
      * @param between 시간표시작일자와 시간표종료일자
      */
-    withBetween = (between: [string, string]): MiddleSchoolTimetableBuilder => {
+    withBetween = (between: [ string, string ]): MiddleSchoolTimetableBuilder => {
         this.from = between[0];
         this.to = between[1];
         return this;
-    }
+    };
 
     /**
      * @description 페이지 위치를 설정합니다.
@@ -350,55 +350,55 @@ export class MiddleSchoolTimetableBuilder {
         let url = this.API_URL;
 
         if (this.scCode) {
-            url += `&ATPT_OFCDC_SC_CODE=${this.scCode}`;
+            url += `&ATPT_OFCDC_SC_CODE=${ this.scCode }`;
         }
 
         if (this.schoolCode) {
-            url += `&SD_SCHUL_CODE=${this.schoolCode}`;
+            url += `&SD_SCHUL_CODE=${ this.schoolCode }`;
         }
 
         if (this.year) {
-            url += `&AY=${this.year}`;
+            url += `&AY=${ this.year }`;
         }
 
         if (this.semester) {
-            url += `&SEM=${this.semester}`;
+            url += `&SEM=${ this.semester }`;
         }
 
         if (this.date) {
-            url += `&ALL_TI_YMD=${this.date}`;
+            url += `&ALL_TI_YMD=${ this.date }`;
         }
 
         if (this.dayNightCourse) {
-            url += `&DGHT_CRSE_SC_NM=${this.dayNightCourse}`;
+            url += `&DGHT_CRSE_SC_NM=${ this.dayNightCourse }`;
         }
 
         if (this.grade) {
-            url += `&GRADE=${this.grade}`;
+            url += `&GRADE=${ this.grade }`;
         }
 
         if (this.class) {
-            url += `&CLASS_NM=${this.class}`;
+            url += `&CLASS_NM=${ this.class }`;
         }
 
         if (this.period) {
-            url += `&PERIO=${this.period}`;
+            url += `&PERIO=${ this.period }`;
         }
 
         if (this.from) {
-            url += `&TI_FROM_YMD=${this.from}`;
+            url += `&TI_FROM_YMD=${ this.from }`;
         }
 
         if (this.to) {
-            url += `&TI_TO_YMD=${this.to}`;
+            url += `&TI_TO_YMD=${ this.to }`;
         }
 
         if (this.page) {
-            url += `&pIndex=${this.page}`;
+            url += `&pIndex=${ this.page }`;
         }
 
         if (this.pageSize) {
-            url += `&pSize=${this.pageSize}`;
+            url += `&pSize=${ this.pageSize }`;
         }
 
         return url;
@@ -420,7 +420,9 @@ export class MiddleSchoolTimetableBuilder {
         try {
             const res = await axios.get(this.url());
 
-            console.log(this.url())
+            if (res.data?.RESULT?.CODE === 'INFO-200') {
+                return [];
+            }
 
             const data = res.data.misTimetable[1].row;
             data.forEach((timetable: MiddleSchoolTimetableType) => {

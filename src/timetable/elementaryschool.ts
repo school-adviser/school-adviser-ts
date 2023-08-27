@@ -1,7 +1,7 @@
 import axios from 'axios';
-import {getApiUrl} from '../utils/api';
-import {ElementarySchoolTimetableParams, ElementarySchoolTimetableType} from "../types/timetable/elementaryschool";
-import {getDate} from "../utils/date";
+import { getApiUrl } from '../utils/api';
+import { ElementarySchoolTimetableParams, ElementarySchoolTimetableType } from '../types/timetable/elementaryschool';
+import { getDate } from '../utils/date';
 
 /**
  * @description 시간표 정보를 빌드하는 클래스입니다.
@@ -182,7 +182,7 @@ export class ElementaryschoolTimetableBuidler {
     withYear = (year: string): ElementaryschoolTimetableBuidler => {
         this.year = year;
         return this;
-    }
+    };
 
     /**
      * @description 학기를 설정합니다.
@@ -195,7 +195,7 @@ export class ElementaryschoolTimetableBuidler {
     withSemester = (semester: string): ElementaryschoolTimetableBuidler => {
         this.semester = semester;
         return this;
-    }
+    };
 
     /**
      * @description 시간표일자를 설정합니다.
@@ -208,7 +208,7 @@ export class ElementaryschoolTimetableBuidler {
     withDate = (date: string): ElementaryschoolTimetableBuidler => {
         this.date = date;
         return this;
-    }
+    };
 
     /**
      * @description 학년을 설정합니다.
@@ -221,7 +221,7 @@ export class ElementaryschoolTimetableBuidler {
     withGrade = (grade: string): ElementaryschoolTimetableBuidler => {
         this.grade = grade;
         return this;
-    }
+    };
 
     /**
      * @description 학급명을 설정합니다.
@@ -234,7 +234,7 @@ export class ElementaryschoolTimetableBuidler {
     withClass = (class_: string): ElementaryschoolTimetableBuidler => {
         this.class = class_;
         return this;
-    }
+    };
 
     /**
      * @description 교시를 설정합니다.
@@ -247,7 +247,7 @@ export class ElementaryschoolTimetableBuidler {
     withPeriod = (period: string): ElementaryschoolTimetableBuidler => {
         this.period = period;
         return this;
-    }
+    };
 
     /**
      * @description 시간표시작일자를 설정합니다.
@@ -260,7 +260,7 @@ export class ElementaryschoolTimetableBuidler {
     withFrom = (from: string): ElementaryschoolTimetableBuidler => {
         this.from = from;
         return this;
-    }
+    };
 
     /**
      * @description 시간표종료일자를 설정합니다.
@@ -273,7 +273,7 @@ export class ElementaryschoolTimetableBuidler {
     withTo = (to: string): ElementaryschoolTimetableBuidler => {
         this.to = to;
         return this;
-    }
+    };
 
     /**
      * @description 시간표시작일자와 시간표종료일자를 설정합니다.
@@ -283,11 +283,11 @@ export class ElementaryschoolTimetableBuidler {
      *
      * @param between 시간표시작일자와 시간표종료일자
      */
-    withBetween = (between: [string, string]): ElementaryschoolTimetableBuidler => {
+    withBetween = (between: [ string, string ]): ElementaryschoolTimetableBuidler => {
         this.from = between[0];
         this.to = between[1];
         return this;
-    }
+    };
 
     /**
      * @description 페이지 위치를 설정합니다.
@@ -327,51 +327,51 @@ export class ElementaryschoolTimetableBuidler {
         let url = this.API_URL;
 
         if (this.scCode) {
-            url += `&ATPT_OFCDC_SC_CODE=${this.scCode}`;
+            url += `&ATPT_OFCDC_SC_CODE=${ this.scCode }`;
         }
 
         if (this.schoolCode) {
-            url += `&SD_SCHUL_CODE=${this.schoolCode}`;
+            url += `&SD_SCHUL_CODE=${ this.schoolCode }`;
         }
 
         if (this.year) {
-            url += `&AY=${this.year}`;
+            url += `&AY=${ this.year }`;
         }
 
         if (this.semester) {
-            url += `&SEM=${this.semester}`;
+            url += `&SEM=${ this.semester }`;
         }
 
         if (this.date) {
-            url += `&ALL_TI_YMD=${this.date}`;
+            url += `&ALL_TI_YMD=${ this.date }`;
         }
 
         if (this.grade) {
-            url += `&GRADE=${this.grade}`;
+            url += `&GRADE=${ this.grade }`;
         }
 
         if (this.class) {
-            url += `&CLASS_NM=${this.class}`;
+            url += `&CLASS_NM=${ this.class }`;
         }
 
         if (this.period) {
-            url += `&PERIO=${this.period}`;
+            url += `&PERIO=${ this.period }`;
         }
 
         if (this.from) {
-            url += `&TI_FROM_YMD=${this.from}`;
+            url += `&TI_FROM_YMD=${ this.from }`;
         }
 
         if (this.to) {
-            url += `&TI_TO_YMD=${this.to}`;
+            url += `&TI_TO_YMD=${ this.to }`;
         }
 
         if (this.page) {
-            url += `&pIndex=${this.page}`;
+            url += `&pIndex=${ this.page }`;
         }
 
         if (this.pageSize) {
-            url += `&pSize=${this.pageSize}`;
+            url += `&pSize=${ this.pageSize }`;
         }
 
         return url;
@@ -392,6 +392,10 @@ export class ElementaryschoolTimetableBuidler {
     build = async (): Promise<ElementarySchoolTimetableType[]> => {
         try {
             const res = await axios.get(this.url());
+
+            if (res.data?.RESULT?.CODE === 'INFO-200') {
+                return [];
+            }
 
             const data = res.data.elsTimetable[1].row;
             data.forEach((timetable: ElementarySchoolTimetableType) => {

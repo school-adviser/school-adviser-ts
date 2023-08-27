@@ -304,6 +304,10 @@ export class SchoolBuilder {
         try {
             const res = await axios.get(this.url());
 
+            if (res.data?.RESULT?.CODE === 'INFO-200') {
+                return [];
+            }
+
             const data = res.data.schoolInfo[1].row;
             data.forEach((school: SchoolType) => {
                 if (typeof school.INDST_SPECL_CCCCL_EXST_YN === 'string') {
